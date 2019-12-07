@@ -1,0 +1,16 @@
+
+class FILE;
+
+@FILE stdout;
+
+@FILE stdin;
+
+int getchar();
+
+int puts(@const[]int8 str);
+
+int fputs(@const[]int8 str, @FILE stream);
+
+int fputc(int c, @FILE stream);
+
+@const[]int8 fgets(@const[]int8 str, int count, @FILE stream);

@@ -1,0 +1,67 @@
+
+struct Node<T>
+{
+	T value;
+	@this next;
+}
+
+class Queue<T>
+{
+	struct this
+	{
+		@Node<T> front, back;
+	}
+
+	this()
+	front{}, back{}
+	{
+	}
+
+	bool empty()
+	{
+		return !front;
+	}
+	
+	void push(T value)
+	{
+		if (back)
+			back = back.next = new Node<T>;
+		else
+			back = front = new Node<T>;
+		back.value = value;
+	}
+
+	void pushFront(T value)
+	{
+		if (front) {
+			auto tmp = new Node<T>;
+			tmp.next = front;
+			front = tmp;
+		} else {
+			front = back = new Node<T>;
+		}
+		front.value = value;
+	}
+
+	T pop()
+	{
+		auto ret = front.value;
+		auto next = front.next;
+		delete front;
+		front = next;
+		if (!front)
+			back = null;
+		return ret;
+	}
+
+	T top()
+	{
+		return front.value;
+	}
+
+	void clear()
+	{
+		while (!empty())
+			pop();
+	}
+}
