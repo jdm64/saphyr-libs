@@ -16,7 +16,7 @@ class List<T>
 
 	~this()
 	{
-		delete arr;
+		delete[cap] arr;
 		arr = null;
 		cap = sz = 0;
 	}
