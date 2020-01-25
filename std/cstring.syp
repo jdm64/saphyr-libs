@@ -67,9 +67,17 @@ class cstring
 		ptr[len] = '\0';
 	}
 
+	#[oper("=")]
 	void set(StrPtr str)
 	{
-		setRange(str, strlen(str));
+		auto len = str ? strlen(str) : 0;
+		setRange(str, len);
+	}
+
+	#[oper("=")]
+	void asgn(cstring str)
+	{
+		set(str.ptr);
 	}
 
 	@this addRange(StrPtr str, int len)
