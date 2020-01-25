@@ -39,7 +39,7 @@ class List<T>
 			auto ptr = new [cap += cap >> 1]T;
 			for (auto i = 0; i < sz; i++)
 				ptr[i] = arr[i];
-			// delete arr; // TODO call copy constructor on previous line
+			delete[sz] arr;
 			arr = ptr;
 		}
 		arr[sz++] = item;
