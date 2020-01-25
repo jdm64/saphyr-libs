@@ -1,8 +1,10 @@
 
-struct Node<T>
+class Node<T>
 {
-	T value;
-	@this next;
+	struct this {
+		T value;
+		@this next;
+	}
 }
 
 class Queue<T>
