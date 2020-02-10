@@ -1,2 +1,4 @@
 
 int time(@void t);
+
+int64 getMTime(@const[]int8 path);

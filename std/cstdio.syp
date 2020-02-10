@@ -14,3 +14,11 @@ int fputs(@const[]int8 str, @FILE stream);
 int fputc(int c, @FILE stream);
 
 @const[]int8 fgets(@const[]int8 str, int count, @FILE stream);
+
+int fread(@void ptr, int size, int count, @FILE stream);
+
+int fwrite(@void ptr, int size, int count, @FILE stream);
+
+@FILE popen(@const[]int8 cmd, @const[]int8 type);
+
+int pclose(@FILE stream);
