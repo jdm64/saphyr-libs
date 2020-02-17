@@ -109,6 +109,7 @@ class cstring
 		return ptr->as(StrPtr);
 	}
 
+	#[oper("==")]
 	bool eq(StrPtr other)
 	{
 		return !strcmp(ptr->as(StrPtr), other);
