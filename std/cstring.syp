@@ -104,6 +104,13 @@ class cstring
 		return this;
 	}
 
+	#[mangle("add2")]
+	@this add(cstring str)
+	{
+		add(str.get());
+		return this;
+	}
+
 	StrPtr get()
 	{
 		return ptr->as(StrPtr);
