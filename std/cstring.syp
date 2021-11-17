@@ -41,7 +41,7 @@ class cstring
 	}
 
 	#[mangle("this3")]
-	this(cstring str)
+	this($cstring str)
 	{
 		if (!str.ptr) {
 			ptr = null;
@@ -75,7 +75,7 @@ class cstring
 	}
 
 	#[oper("=")]
-	void asgn(cstring str)
+	void asgn($cstring str)
 	{
 		set(str.ptr);
 	}
@@ -105,7 +105,7 @@ class cstring
 	}
 
 	#[mangle("add2")]
-	@this add(cstring str)
+	@this add($cstring str)
 	{
 		add(str.get());
 		return this;
