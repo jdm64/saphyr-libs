@@ -22,3 +22,5 @@ int fwrite(@void ptr, int size, int count, @FILE stream);
 @FILE popen(@const[]int8 cmd, @const[]int8 type);
 
 int pclose(@FILE stream);
+
+int fflush(@FILE stream);
