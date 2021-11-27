@@ -24,7 +24,7 @@ class Queue<T>
 		return !front;
 	}
 	
-	void push(T value)
+	void push($T value)
 	{
 		if (back)
 			back = back.next = new Node<T>;
@@ -33,7 +33,7 @@ class Queue<T>
 		back.value = value;
 	}
 
-	void pushFront(T value)
+	void pushFront($T value)
 	{
 		if (front) {
 			auto tmp = new Node<T>;

@@ -31,7 +31,7 @@ class List<T>
 		}
 	}
 
-	void add(T item)
+	void add($T item)
 	{
 		if (!arr) {
 			arr = new [cap = 8]T;
