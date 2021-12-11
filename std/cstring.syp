@@ -1,19 +1,5 @@
-
-import "cstdlib.syp";
-
-alias byte = int8;
-
-alias StrPtr = @const[]int8;
-
-int strlen(StrPtr str);
-
-StrPtr strcpy(StrPtr dest, StrPtr source);
-
-int strcmp(StrPtr lhs, StrPtr rhs);
-
-StrPtr strtok(StrPtr str, StrPtr delimiters);
-
-@void memcpy(@void dest, @void source, int size);
+import libc.stdlib;
+import libc.string;
 
 class cstring
 {
@@ -26,7 +12,7 @@ class cstring
 	{
 	}
 
-	void init(StrPtr str)
+	void init(cstr str)
 	{
 		if (!str) {
 			ptr = null;
@@ -39,7 +25,7 @@ class cstring
 	}
 
 	#[mangle("this2")]
-	this(StrPtr str)
+	this(cstr str)
 	{
 		init(str);
 	}
@@ -50,12 +36,23 @@ class cstring
 		init(str.ptr);
 	}
 
+	#[mangle("this4")]
+	this(cstr str, bool movePtr)
+	ptr{str}
+	{
+	}
+
+	~this()
+	{
+		delete ptr;
+	}
+
 	int size()
 	{
 		return ptr ? strlen(ptr) : 0;
 	}
 
-	void setRange(StrPtr str, int len)
+	void setRange(cstr str, int len)
 	{
 		if (ptr)
 			~this();
@@ -65,7 +62,7 @@ class cstring
 	}
 
 	#[oper("=")]
-	void set(StrPtr str)
+	void set(cstr str)
 	{
 		auto len = str ? strlen(str) : 0;
 		setRange(str, len);
@@ -77,7 +74,7 @@ class cstring
 		set(str.ptr);
 	}
 
-	@this addRange(StrPtr str, int len)
+	@this addRange(cstr str, int len)
 	{
 		if (!ptr) {
 			setRange(str, len);
@@ -95,37 +92,59 @@ class cstring
 		return this;
 	}
 
-	@this add(StrPtr str)
+	#[oper("+=")]
+	@this add(cstr str)
 	{
 		addRange(str, strlen(str));
 		return this;
 	}
 
-	#[mangle("add2")]
+	#[mangle("add2"), oper("+=")]
 	@this add($cstring str)
 	{
 		add(str.get());
 		return this;
 	}
 
-	StrPtr get()
+	cstr get()
 	{
-		return ptr->as(StrPtr);
+		return ptr->as(cstr);
 	}
 
 	#[oper("==")]
-	bool eq(StrPtr other)
+	bool eq(cstr other)
 	{
-		return !strcmp(ptr->as(StrPtr), other);
+		return !strcmp(ptr->as(cstr), other);
 	}
 
-	~this()
+	bool has(cstr str)
 	{
-		delete ptr;
+		return strstr(ptr, str);
+	}
+
+	void replace(int8 from, int8 to)
+	{
+		auto sz = size();
+		for (int i = 0; i < sz; i++) {
+			if (ptr[i] == from) {
+				ptr[i] = to;
+			}
+		}
+	}
+
+	void trim()
+	{
+		auto l = size();
+		for (int i = l - 1; i >= 0; i--) {
+			if (ptr[i] == '\n' || ptr[i] == '\r')
+				ptr[i] = '\0';
+			else
+				break;
+		}
 	}
 }
 
-int toNumber(StrPtr num, @bool error)
+int toNumber(cstr num, @bool error)
 {
 	auto end = num;
 	auto ret = strtol(num, end$, 10);
@@ -134,7 +153,7 @@ int toNumber(StrPtr num, @bool error)
 	return ret;
 }
 
-void reverse(@[]byte str, int length)
+void reverse(@[]int8 str, int length)
 {
         int start = 0;
         int end = length - 1;
@@ -147,9 +166,9 @@ void reverse(@[]byte str, int length)
         }
 }
 
-StrPtr toString(int num)
+cstr toString(int num)
 {
-	@[]byte str = new [16]byte;
+	@[]int8 str = new [16]int8;
 
 	if (num == 0) {
 		str[0] = '0';

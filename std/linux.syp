@@ -1,0 +1,11 @@
+import libc.stdio;
+
+@FILE popen(@const[]int8 command, @const[]int8 type);
+
+int pclose(@FILE stream);
+
+@const[]int8 basename(@const[]int8 name);
+
+@const[]int8 realpath(@const[]int8 path, @const[]int8 resolvedPath);
+
+@const[]int8 dirname(@const[]int8 path);

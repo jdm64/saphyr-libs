@@ -1,6 +1,6 @@
 
 int rand();
 
-int getrandom(@void buff, int len, uint flags);
-
 int64 strtol(@const[]int8 str, @@const[]int8 end, int base);
+
+@const[]int8 getenv(@const[]int8 name);

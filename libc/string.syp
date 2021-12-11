@@ -1,0 +1,14 @@
+
+alias cstr = @const[]int8;
+
+int strlen(cstr str);
+
+cstr strcpy(cstr dest, cstr source);
+
+int strcmp(cstr lhs, cstr rhs);
+
+cstr strstr(cstr str, cstr find);
+
+cstr strtok(cstr str, cstr delimiters);
+
+@void memcpy(@void dest, @void source, int size);

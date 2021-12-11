@@ -1,0 +1,39 @@
+import libc.stdio;
+import "cstring.syp";
+import "List.syp";
+
+int readLine(@FILE stream, $cstring str)
+{
+	[128]int8 buf;
+	return fgets(buf$, buf->size, stream)->as(int);
+}
+
+void readToLines(@FILE stream, $List<cstring> lines, bool trim)
+{
+	[128]int8 buf;
+	while (fgets(buf$, buf->size, stream)) {
+		cstring str{buf$->as(cstr)};
+		if (trim)
+			str.trim();
+		lines.add(str);
+	}
+}
+
+void writeTo(cstr str, @FILE stream)
+{
+	fwrite(str, 1, strlen(str), stream);
+}
+
+#[mangle("writeTo2")]
+void writeTo($cstring str, @FILE stream)
+{
+	fwrite(str.get(), 1, str.size(), stream);
+}
+
+void dumpStream(@FILE in, @FILE out)
+{
+	[128]int8 buf;
+	int n;
+	while ((n = fread(buf$, 1, buf->size, in)) > 0)
+		fwrite(buf$, 1, n, out);
+}

@@ -1,0 +1,35 @@
+
+alias ghashkey = @void;
+alias ghashvalue = @void;
+alias ghashfunc = @(ghashkey)uint;
+alias gequalfunc = @(ghashvalue,ghashvalue)bool;
+alias ghfunc = @(ghashkey,ghashvalue,@void)void;
+
+bool g_str_equal(ghashvalue v1, ghashvalue v2);
+
+uint g_str_hash(ghashkey v);
+
+#[opaque]
+class GHashTable
+{
+	#[static, mangle("g_hash_table_new", "true")]
+	@this create(ghashfunc hashFunc, gequalfunc equalFunc);
+
+	#[mangle("g_hash_table_insert", "true")]
+	bool insert(ghashkey key, ghashvalue value);
+
+	#[mangle("g_hash_table_lookup", "true")]
+	ghashvalue lookup(ghashkey key);
+
+	#[mangle("g_hash_table_foreach", "true")]
+	void foreach(ghfunc func, @void userData);
+
+	#[mangle("g_hash_table_remove", "true")]
+	bool remove(ghashkey key);
+
+	#[mangle("g_hash_table_remove_all", "true")]
+	void remove_all();
+
+	#[mangle("g_hash_table_destroy", "true")]
+	void destroy();
+}
