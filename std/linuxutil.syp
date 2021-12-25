@@ -1,2 +1,7 @@
 
+package {
+	header
+	cfile("linuxutil_ext.c")
+}
+
 int64 getMTime(@const[]int8 path);

@@ -1,4 +1,8 @@
 
+package {
+	header
+}
+
 class Node<T>
 {
 	struct this {

@@ -1,4 +1,8 @@
 
+package {
+	header
+}
+
 class FILE;
 
 @FILE stdout;

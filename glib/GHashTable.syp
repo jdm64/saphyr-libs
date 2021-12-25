@@ -1,4 +1,9 @@
 
+package {
+	header
+	linker("glib-2.0")
+}
+
 alias ghashkey = @void;
 alias ghashvalue = @void;
 alias ghashfunc = @(ghashkey)uint;

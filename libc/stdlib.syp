@@ -1,4 +1,8 @@
 
+package {
+	header
+}
+
 int rand();
 
 int64 strtol(@const[]int8 str, @@const[]int8 end, int base);

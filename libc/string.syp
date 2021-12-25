@@ -1,4 +1,8 @@
 
+package {
+	header
+}
+
 alias cstr = @const[]int8;
 
 int strlen(cstr str);
