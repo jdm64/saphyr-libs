@@ -142,6 +142,15 @@ class cstring
 				break;
 		}
 	}
+
+	cstr substr(int start, int end)
+	{
+		auto sz = end - start + 1;
+		auto p = new [sz]int8;
+		memcpy(p, ptr[start]$, sz);
+		p[sz - 1] = '\0';
+		return p;
+	}
 }
 
 int toNumber(cstr num, @bool error)
